@@ -14,14 +14,13 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   List<Product> new_product = [];
-  List<Product> order_product = [];
 
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     getProductFromServer('new_product', new_product);
-    getProductFromServer('order_product', order_product);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -190,7 +189,5 @@ class _FirstPageState extends State<FirstPage> {
     return ProductView(index, new_product);
   }
 
-  Widget orderProductList(BuildContext context, int index) {
-    return ProductView(index, order_product);
-  }
+
 }
