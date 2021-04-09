@@ -27,6 +27,8 @@ class _DetailPageState extends State<DetailPage> {
   String slide_img2 = '';
   String slide_img3 = '';
 
+  int tab_index = 0;
+
   _DetailPageState(productId) {
     String url = AppData.server_url +
         '?action=getProductData&id=' +
@@ -52,116 +54,63 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-        elevation: 0,
-        title: Text(
-          title,
-          style: TextStyle(
-            fontFamily: 'i',
-            color: Colors.black,
-            fontSize: 14,
-            letterSpacing: -2,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('fa'), // Farsi
+      ],
+      home: Scaffold(
+        backgroundColor: Colors.indigo[700],
+        appBar: AppBar(
+          backgroundColor: Colors.indigo[700],
+          elevation: 0,
+          title: Text(
+            title,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              fontFamily: 'i',
+              color: Colors.black,
+              fontSize: 14,
+              letterSpacing: -2,
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40),
-                ),
-              ),
-              height: 260,
-              child: PageView.builder(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ////////////////////////////////
+              Container(
+                height: 282,
+                child: PageView.builder(
                   itemBuilder: (context, position) {
                     return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10,left: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(50),
-                                  bottomRight: Radius.circular(50),
-                                ),
-                                color: Colors.red),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(40),
-                                  bottomLeft: Radius.circular(40)),
-                              child: Image(
-                                  image: NetworkImage(slide_img0),
-                                  fit: BoxFit.fitWidth),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(right: 10,left: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(50),
-                                  bottomRight: Radius.circular(50),
-                                ),
-                                color: Colors.red),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(40),
-                                  bottomLeft: Radius.circular(40)),
-                              child: Image(
-                                  image: NetworkImage(slide_img1),
-                                  fit: BoxFit.fitWidth),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(right: 10,left: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(50),
-                                  bottomRight: Radius.circular(50),
-                                ),
-                                color: Colors.red),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(40),
-                                  bottomLeft: Radius.circular(40)),
-                              child: Image(
-                                  image: NetworkImage(slide_img2),
-                                  fit: BoxFit.fitWidth),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(right: 10,left: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(50),
-                                  bottomRight: Radius.circular(50),
-                                ),
-                                color: Colors.red),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(40),
-                                  bottomLeft: Radius.circular(40)),
-                              child: Image(
-                                  image: NetworkImage(slide_img3),
-                                  fit: BoxFit.fitWidth),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                        scrollDirection: Axis.horizontal,
+                        child: ListViewView());
                   },
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4),
-            ),
-            // Text(title),
-            // Text(description),
-          ],
+                  itemCount: 4,
+                  onPageChanged: (position) {
+                    setState(() {
+                      tab_index = position;
+                    });
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 150),
+                child: Center(
+                  child: footer(),
+                ),
+              ),
+              // Text(title),
+              // Text(description),
+            ],
+          ),
         ),
       ),
     );
@@ -171,22 +120,111 @@ class _DetailPageState extends State<DetailPage> {
 ////////// Widgets //////////////////
 /////////////////////////////////////
 
-// Widget SliderImage() {
-//   return Column(
-//     children: [
-//       Image(
-//         image: NetworkImage(slide_img0),
-//       ),
-//       Image(
-//         image: NetworkImage(slide_img1),
-//       ),
-//       Image(
-//         image: NetworkImage(slide_img2),
-//       ),
-//       Image(
-//         image: NetworkImage(slide_img3),
-//       ),
-//     ],
-//   );
-// }
+  Widget ListViewView() {
+    return Row(
+      children: [
+        Container(
+          // margin: EdgeInsets.only(right: 10, left: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
+              color: Colors.red),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(50),
+              bottomRight: Radius.circular(50),
+            ),
+            child: Image(image: NetworkImage(slide_img0), fit: BoxFit.fitWidth),
+          ),
+        ),
+        Container(
+          // margin: EdgeInsets.only(right: 10, left: 10),
+          // decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.only(
+          //       bottomLeft: Radius.circular(50),
+          //       topLeft: Radius.circular(50),
+          //     ),
+          //     color: Colors.red),
+          child: ClipRRect(
+            // borderRadius: BorderRadius.only(
+            //   bottomLeft: Radius.circular(50),
+            //   topLeft: Radius.circular(50),
+            // ),
+            child: Image(image: NetworkImage(slide_img1), fit: BoxFit.fitWidth),
+          ),
+        ),
+        Container(
+          // margin: EdgeInsets.only(right: 10, left: 10),
+          // decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.only(
+          //       bottomLeft: Radius.circular(50),
+          //       bottomRight: Radius.circular(50),
+          //     ),
+          //     color: Colors.red),
+          child: ClipRRect(
+            // borderRadius: BorderRadius.only(
+            //     bottomRight: Radius.circular(40),
+            //     bottomLeft: Radius.circular(40)),
+            child: Image(image: NetworkImage(slide_img2), fit: BoxFit.fitWidth),
+          ),
+        ),
+        Container(
+          // margin: EdgeInsets.only(right: 10, left: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                topLeft: Radius.circular(50),
+              ),
+              color: Colors.red),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(50),
+              topLeft: Radius.circular(50),
+            ),
+            child: Image(image: NetworkImage(slide_img3), fit: BoxFit.fitWidth),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _Active() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.red,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      width: 10,
+      height: 10,
+    );
+  }
+
+  Widget _InActive() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      width: 10,
+      height: 10,
+    );
+  }
+
+  Widget footer() {
+    List<Widget> sliderItem = [];
+
+    for (int i = 0; i < product.length; i++) {
+      i == tab_index ? sliderItem.add(_Active()) :
+      sliderItem.add(_InActive());
+    }
+    return Row(
+      children: sliderItem,
+    );
+  }
 }

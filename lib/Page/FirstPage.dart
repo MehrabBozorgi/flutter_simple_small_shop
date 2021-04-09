@@ -29,7 +29,7 @@ class _FirstPageState extends State<FirstPage> {
             margin: EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.grey[200],
+              color: Colors.white38,
             ),
             width: w,
             height: 50,
@@ -42,16 +42,18 @@ class _FirstPageState extends State<FirstPage> {
                 ),
                 Text('جستجو در',
                     style: TextStyle(
-                        fontFamily: 'i',
+                        fontFamily: 'b',
                         fontSize: 16,
-                        color: Colors.grey[700])),
+                        letterSpacing: 2,
+
+                        color: Colors.grey[900])),
                 SizedBox(
                   width: 5,
                 ),
                 Text(
                   'فروشگاه',
                   style: TextStyle(
-                      fontFamily: 'b', fontSize: 18, color: Colors.red[600]),
+                      fontFamily: 'b', fontSize: 18, color: Colors.white),
                 ),
               ],
             ),
@@ -112,73 +114,75 @@ class _FirstPageState extends State<FirstPage> {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => DetailPage(list[index].id)));
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailPage(list[index].id)));
       },
       child: Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.white24, width: 3)),
-        padding: EdgeInsets.only(top: 10, bottom: 20, right: 10, left: 10),
-        child: Card(
-          color: Colors.white,
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Container(
-            // margin: EdgeInsets.only(bottom: 20,),
-            width: w,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Card(
-                  color: Colors.red,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  elevation: 10,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: Image(
-                        image: NetworkImage(list[index].img_url),
-                        height: w - 135,
-                      )),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10, left: 10, bottom: 20),
-                  //color: Colors.red,
-                  width: w + 120,
-                  child: Text(
-                    list[index].title,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'b',
-                      color: Colors.grey[900],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 15),
-                  child: Text(
-                    list[index].price.toString() + ' تومان',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'b',
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                ),
-              ],
+        margin: EdgeInsets.only(top: 10, bottom: 20, right: 10, left: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(120),
+              bottomRight: Radius.circular(120),
             ),
+            color: Colors.white38),
+        child: Container(
+          width: w,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Card(
+                color: Colors.indigo[700],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(80),
+                    bottomRight: Radius.circular(80),
+                  ),
+                ),
+                elevation: 10,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(80),
+                      bottomRight: Radius.circular(80),
+                    ),
+                    child: Image(
+                      image: NetworkImage(list[index].img_url),
+                      height: w - 135,
+                    )),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 20, left: 10, bottom: 20),
+                //color: Colors.red,
+                width: w + 120,
+                child: Text(
+                  list[index].title,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'b',
+                    color: Colors.grey[900],
+                  ),
+                ),
+              ),
+
+              Container(
+                margin: EdgeInsets.only(bottom: 15),
+                child: Text(
+                  list[index].price.toString() + ' تومان',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'b',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -188,6 +192,4 @@ class _FirstPageState extends State<FirstPage> {
   Widget newProductList(BuildContext context, int index) {
     return ProductView(index, new_product);
   }
-
-
 }

@@ -18,7 +18,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.indigo[700],
       body: SafeArea(child: FirstPage()),
     );
   }
