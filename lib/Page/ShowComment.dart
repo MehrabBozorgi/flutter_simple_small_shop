@@ -3,6 +3,8 @@ import 'package:flutter_small_online_shop/Widget/AppData.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'AddComment.dart';
+
 class ShowComment extends StatefulWidget {
   int productId;
 
@@ -51,7 +53,7 @@ class _ShowCommentState extends State<ShowComment> {
                 ),
                 tooltip: 'اضافه کردن نظر',
                 onPressed: () {
-
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddComment()));
 
                 }),
           ],
