@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_small_online_shop/Model/MySlider.dart';
 import 'package:flutter_small_online_shop/Model/Product.dart';
 import 'package:flutter_small_online_shop/Widget/AppData.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
+
+import 'ShowComment.dart';
 
 class DetailPage extends StatefulWidget {
   int productId;
@@ -19,36 +22,15 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   List<Product> product = [];
-  List<MySlider> slider = [];
 
   String title = '';
   String img_url = '';
   String description = '';
   String slide_img = '';
-
-  int price = 0;
-
   int tab_index = 0;
 
-  _DetailPageState(productId) {
-    String url = AppData.server_url +
-        '?action=getProductData&id=' +
-        productId.toString();
-
-    http.get(url).then((resp) {
-      if (resp.statusCode == 200) {
-        dynamic jsonResp = convert.jsonDecode(resp.body);
-        print(resp.body);
-
-        setState(() {
-          title = jsonResp['title'];
-          img_url = jsonResp['img_url'];
-          description = jsonResp['description'];
-          price = int.parse(jsonResp['price']);
-        });
-      }
-    });
-  }
+  int price = 0;
+  List<MySlider> slider = [];
 
   getSlider() {
     if (slider.length == 0) {
@@ -73,6 +55,26 @@ class _DetailPageState extends State<DetailPage> {
     }
   }
 
+  _DetailPageState(productId) {
+    String url = AppData.server_url +
+        '?action=getProductData&id=' +
+        productId.toString();
+
+    http.get(url).then((resp) {
+      if (resp.statusCode == 200) {
+        dynamic jsonResp = convert.jsonDecode(resp.body);
+        print(resp.body);
+
+        setState(() {
+          title = jsonResp['title'];
+          img_url = jsonResp['img_url'];
+          description = jsonResp['description'];
+          price = int.parse(jsonResp['price']);
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -93,21 +95,35 @@ class _DetailPageState extends State<DetailPage> {
         appBar: AppBar(
           backgroundColor: Colors.indigo[700],
           elevation: 0,
-          title: Text(
-            title,
-            textAlign: TextAlign.right,
-            style: TextStyle(
-              fontFamily: 'b',
-              color: Colors.white,
-              fontSize: 16,
-              letterSpacing: 1,
-            ),
+          leading: Icon(
+            Icons.exit_to_app_sharp,
+            color: Colors.red,
+            size: 30,
           ),
+          actions: [
+            Icon(
+              Icons.save,
+              color: Colors.red,
+              size: 30,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            IconButton(
+                mouseCursor: MouseCursor.defer,
+                tooltip: 'سبد خرید',
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Colors.red,
+                  size: 30,
+                ),
+                onPressed: () {}),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ////////////////////////////////
+              ///////////////slider/////////////////
               Container(
                 height: 250,
                 child: PageView.builder(
@@ -131,7 +147,7 @@ class _DetailPageState extends State<DetailPage> {
                   child: footer(),
                 ),
               ),
-
+              ///////////////slider/////////////////
               Container(
                 margin: EdgeInsets.only(right: 10),
                 alignment: Alignment.topRight,
@@ -204,6 +220,7 @@ class _DetailPageState extends State<DetailPage> {
               SizedBox(
                 height: 20,
               ),
+              ShowComment(widget.productId),
             ],
           ),
         ),
