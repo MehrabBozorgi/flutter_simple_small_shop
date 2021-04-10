@@ -26,6 +26,8 @@ class _DetailPageState extends State<DetailPage> {
   String description = '';
   String slide_img = '';
 
+  int price = 0;
+
   int tab_index = 0;
 
   _DetailPageState(productId) {
@@ -41,8 +43,8 @@ class _DetailPageState extends State<DetailPage> {
         setState(() {
           title = jsonResp['title'];
           img_url = jsonResp['img_url'];
-          //slide_img = jsonResp['slide_img'];
           description = jsonResp['description'];
+          price = int.parse(jsonResp['price']);
         });
       }
     });
@@ -73,6 +75,8 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     getSlider();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -163,6 +167,40 @@ class _DetailPageState extends State<DetailPage> {
                       letterSpacing: 2),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              ////////////////////////////////////
+              //////////////  Button  ////////////
+              ////////////////////////////////////
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      topRight: Radius.circular(50)),
+                ),
+                width: w - 70,
+                height: 55,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.shopping_cart,
+                      color: Colors.white,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 10),
+                      child: Text(
+                        price.toString(),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: 'b', fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
               SizedBox(
                 height: 20,
               ),
