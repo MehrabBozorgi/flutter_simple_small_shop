@@ -4,7 +4,6 @@ import 'package:flutter_small_online_shop/Model/Product.dart';
 import 'package:flutter_small_online_shop/Widget/AppData.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-
 import 'DetailPage.dart';
 
 class FirstPage extends StatefulWidget {
@@ -53,7 +52,7 @@ class _FirstPageState extends State<FirstPage> {
                 Text(
                   'فروشگاه',
                   style: TextStyle(
-                      fontFamily: 'b', fontSize: 18, color: Colors.white),
+                      fontFamily: 'b', fontSize: 18, color: Colors.redAccent),
                 ),
               ],
             ),
@@ -82,24 +81,25 @@ class _FirstPageState extends State<FirstPage> {
 
   Widget getProductFromServer(String action, List<Product> list) {
     if (list.length == 0) {
+
       var url = AppData.server_url + '?action=' + action;
       http.get(url).then((resp) {
+        //
         if (resp.statusCode == 200) {
-          print(resp.statusCode);
           List jsonResp = convert.jsonDecode(resp.body);
+          //
           for (int i = 0; i < jsonResp.length; i++) {
             setState(() {
+              //
               list.add(new Product(
                 id: int.parse(jsonResp[i]['id']),
                 title: jsonResp[i]['title'],
                 price: int.parse(jsonResp[i]['price']),
                 img_url: jsonResp[i]['img_url'],
-                slide_img0: jsonResp[i]['img_url0'],
-                slide_img1: jsonResp[i]['img_url1'],
-                slide_img2: jsonResp[i]['img_url2'],
-                slide_img3: jsonResp[i]['img_url3'],
+                slide_img: jsonResp[i]['slide_img'],
                 description: jsonResp[i]['description'],
               ));
+           //
             });
           }
         }

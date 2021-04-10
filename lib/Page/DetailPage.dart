@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_small_online_shop/Model/MySlider.dart';
 import 'package:flutter_small_online_shop/Model/Product.dart';
 import 'package:flutter_small_online_shop/Widget/AppData.dart';
 import 'package:http/http.dart' as http;
@@ -18,14 +19,12 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   List<Product> product = [];
+  List<MySlider> slider = [];
 
   String title = '';
   String img_url = '';
   String description = '';
-  String slide_img0 = '';
-  String slide_img1 = '';
-  String slide_img2 = '';
-  String slide_img3 = '';
+  String slide_img = '';
 
   int tab_index = 0;
 
@@ -42,18 +41,39 @@ class _DetailPageState extends State<DetailPage> {
         setState(() {
           title = jsonResp['title'];
           img_url = jsonResp['img_url'];
+          //slide_img = jsonResp['slide_img'];
           description = jsonResp['description'];
-          slide_img0 = jsonResp['slide_img0'];
-          slide_img1 = jsonResp['slide_img1'];
-          slide_img2 = jsonResp['slide_img2'];
-          slide_img3 = jsonResp['slide_img3'];
         });
       }
     });
   }
 
+  getSlider() {
+    if (slider.length == 0) {
+      String url = AppData.server_url +
+          '?action=get_sliders2&product_id=' +
+          widget.productId.toString();
+
+      http.get(url).then((response) {
+        if (response.statusCode == 200) {
+          print('کار کرد ...');
+          List jsonRespo = convert.jsonDecode(response.body);
+
+          for (int i = 0; i < jsonRespo.length; i++) {
+            setState(() {
+              slider.add(new MySlider(
+                  id: int.parse(jsonRespo[i]['id']),
+                  img_slide: jsonRespo[i]['img_slide']));
+            });
+          }
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getSlider();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
@@ -73,10 +93,10 @@ class _DetailPageState extends State<DetailPage> {
             title,
             textAlign: TextAlign.right,
             style: TextStyle(
-              fontFamily: 'i',
-              color: Colors.black,
-              fontSize: 14,
-              letterSpacing: -2,
+              fontFamily: 'b',
+              color: Colors.white,
+              fontSize: 16,
+              letterSpacing: 1,
             ),
           ),
         ),
@@ -85,15 +105,15 @@ class _DetailPageState extends State<DetailPage> {
             children: [
               ////////////////////////////////
               Container(
-                height: 282,
+                height: 250,
                 child: PageView.builder(
                   itemBuilder: (context, position) {
                     return SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: ListViewView());
+                        child: ListViewView(position));
                   },
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
+                  itemCount: slider.length,
                   onPageChanged: (position) {
                     setState(() {
                       tab_index = position;
@@ -102,13 +122,50 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 150),
+                margin: EdgeInsets.only(top: 10, bottom: 20),
                 child: Center(
                   child: footer(),
                 ),
               ),
-              // Text(title),
-              // Text(description),
+
+              Container(
+                margin: EdgeInsets.only(right: 10),
+                alignment: Alignment.topRight,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: 20, fontFamily: 'b', color: Colors.white),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  right: 5,
+                  left: 5,
+                ),
+                padding:
+                    EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 20),
+                alignment: Alignment.topRight,
+                decoration: BoxDecoration(
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(70),
+                      bottomRight: Radius.circular(70)),
+                ),
+                child: Text(
+                  description,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'i',
+                      color: Colors.black,
+                      letterSpacing: 2),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
@@ -120,70 +177,20 @@ class _DetailPageState extends State<DetailPage> {
 ////////// Widgets //////////////////
 /////////////////////////////////////
 
-  Widget ListViewView() {
+  Widget ListViewView(int index) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return Row(
       children: [
         Container(
-          // margin: EdgeInsets.only(right: 10, left: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              ),
-              color: Colors.red),
+          width: w,
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(50),
-              bottomRight: Radius.circular(50),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            child: Image(
+              image: NetworkImage(slider[index].img_slide),
+              fit: BoxFit.fitWidth,
+              // height: 250,
             ),
-            child: Image(image: NetworkImage(slide_img0), fit: BoxFit.fitWidth),
-          ),
-        ),
-        Container(
-          // margin: EdgeInsets.only(right: 10, left: 10),
-          // decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.only(
-          //       bottomLeft: Radius.circular(50),
-          //       topLeft: Radius.circular(50),
-          //     ),
-          //     color: Colors.red),
-          child: ClipRRect(
-            // borderRadius: BorderRadius.only(
-            //   bottomLeft: Radius.circular(50),
-            //   topLeft: Radius.circular(50),
-            // ),
-            child: Image(image: NetworkImage(slide_img1), fit: BoxFit.fitWidth),
-          ),
-        ),
-        Container(
-          // margin: EdgeInsets.only(right: 10, left: 10),
-          // decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.only(
-          //       bottomLeft: Radius.circular(50),
-          //       bottomRight: Radius.circular(50),
-          //     ),
-          //     color: Colors.red),
-          child: ClipRRect(
-            // borderRadius: BorderRadius.only(
-            //     bottomRight: Radius.circular(40),
-            //     bottomLeft: Radius.circular(40)),
-            child: Image(image: NetworkImage(slide_img2), fit: BoxFit.fitWidth),
-          ),
-        ),
-        Container(
-          // margin: EdgeInsets.only(right: 10, left: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                topLeft: Radius.circular(50),
-              ),
-              color: Colors.red),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              topLeft: Radius.circular(50),
-            ),
-            child: Image(image: NetworkImage(slide_img3), fit: BoxFit.fitWidth),
           ),
         ),
       ],
@@ -206,7 +213,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget _InActive() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.white38,
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -219,11 +226,11 @@ class _DetailPageState extends State<DetailPage> {
   Widget footer() {
     List<Widget> sliderItem = [];
 
-    for (int i = 0; i < product.length; i++) {
-      i == tab_index ? sliderItem.add(_Active()) :
-      sliderItem.add(_InActive());
+    for (int i = 0; i < slider.length; i++) {
+      i == tab_index ? sliderItem.add(_Active()) : sliderItem.add(_InActive());
     }
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: sliderItem,
     );
   }
