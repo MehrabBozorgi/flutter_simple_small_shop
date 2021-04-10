@@ -17,9 +17,11 @@ void main() => runApp(MaterialApp(
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.indigo[700],
-      body: SafeArea(child: FirstPage()),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.indigo[700],
+        body: SafeArea(child: FirstPage()),
+      ),
     );
   }
 }

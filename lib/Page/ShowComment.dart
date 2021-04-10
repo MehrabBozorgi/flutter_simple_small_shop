@@ -37,50 +37,60 @@ class _ShowCommentState extends State<ShowComment> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            width: w,
-            height: 60,
-            color: Colors.white38,
-            child: Center(
-              child: Text(
-                'نظرات',
-                style: TextStyle(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.indigo[700],
+          elevation: 0,
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.add_comment,
                   color: Colors.white,
-                  fontFamily: 'b',
-                  fontSize: 18,
+                  size: 25,
+                ),
+                tooltip: 'اضافه کردن نظر',
+                onPressed: () {
+
+
+                }),
+          ],
+        ),
+        backgroundColor: Colors.indigo[700],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(right: 10, left: 10),
+                padding: EdgeInsets.only(bottom: 120),
+                decoration: BoxDecoration(
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20)),
+                  border: Border.all(width: 2, color: Colors.white),
+                ),
+                height: h,
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, index) {
+                    return commentView(index);
+                  },
+                  itemCount: showComment.length,
+                  scrollDirection: Axis.vertical,
                 ),
               ),
-            ),
+            ],
           ),
-          Container(
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                color: Colors.white38,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(40),
-                    topLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20)),
-                border: Border.all(width: 2, color: Colors.white)),
-            height: 350,
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, index) {
-                return commentView(index);
-              },
-              itemCount: showComment.length,
-              scrollDirection: Axis.vertical,
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          )
-        ],
+        ),
       ),
     );
   }
+
+  /////////////////////////////////////
+  ////////// Widgets //////////////////
+  /////////////////////////////////////
 
   Widget commentView(int index) {
     double w = MediaQuery.of(context).size.width;
@@ -133,7 +143,7 @@ class _ShowCommentState extends State<ShowComment> {
               style:
                   TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'b'),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -80,26 +80,12 @@ class _DetailPageState extends State<DetailPage> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     getSlider();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('fa'), // Farsi
-      ],
-      home: Scaffold(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.indigo[700],
         appBar: AppBar(
           backgroundColor: Colors.indigo[700],
           elevation: 0,
-          leading: Icon(
-            Icons.exit_to_app_sharp,
-            color: Colors.red,
-            size: 30,
-          ),
           actions: [
             Icon(
               Icons.save,
@@ -216,11 +202,46 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShowComment(widget.productId)));
+                },
+                child: Container(
+                  width: w,
+                  height: 60,
+                  color: Colors.white38,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'مشاهده نظرات ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'b',
+                          fontSize: 18,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.comment,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                ),
+              ),
 
               SizedBox(
                 height: 20,
               ),
-              ShowComment(widget.productId),
             ],
           ),
         ),
