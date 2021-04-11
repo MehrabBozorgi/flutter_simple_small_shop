@@ -4,6 +4,9 @@ import 'package:flutter_small_online_shop/Model/MySlider.dart';
 import 'package:flutter_small_online_shop/Model/Product.dart';
 import 'package:flutter_small_online_shop/Page/AddComment.dart';
 import 'package:flutter_small_online_shop/Widget/AppData.dart';
+import 'package:flutter_small_online_shop/Widget/Cart.dart';
+import 'package:flutter_small_online_shop/Widget/loadCircle.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -30,11 +33,14 @@ class _DetailPageState extends State<DetailPage> {
   String slide_img = '';
   int tab_index = 0;
 
-  int price = 0;
+  String price ;
+  String productPrice;
+
   List<MySlider> slider = [];
 
   //
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
   getSlider() {
     if (slider.length == 0) {
       String url = AppData.server_url +
@@ -59,7 +65,8 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   //
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
   _DetailPageState(productId) {
     String url = AppData.server_url +
         '?action=getProductData&id=' +
@@ -74,7 +81,10 @@ class _DetailPageState extends State<DetailPage> {
           title = jsonResp['title'];
           img_url = jsonResp['img_url'];
           description = jsonResp['description'];
-          price = int.parse(jsonResp['price']);
+          productPrice = jsonResp['price'];
+
+          var format = new NumberFormat('###,###');
+          price = format.format(int.parse(jsonResp['price'])).toString();
         });
       }
     });
@@ -136,15 +146,22 @@ class _DetailPageState extends State<DetailPage> {
                   Icons.shopping_cart_rounded,
                   color: Colors.white,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CartPage()),
+                  );
+                }),
           ],
         ),
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-        body: SingleChildScrollView(
+        body:
+     (  title.isNotEmpty ? SingleChildScrollView(
           child: Column(
             children: [
-              /////////////// Slider //////////////////////////////////////////////////////////
+              ///////////////////////////////////////////////////////////////////////////////////////
+              ///////////////////// Slider //////////////////////////////////////////////////////////
               Container(
                 height: 250,
                 child: PageView.builder(
@@ -281,7 +298,7 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ],
           ),
-        ),
+        ) :loadCircle() ),
       ),
     );
   }

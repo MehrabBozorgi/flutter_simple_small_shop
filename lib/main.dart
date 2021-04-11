@@ -20,7 +20,7 @@ class Main extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey[900],
-        body: SafeArea(child: FirstPage()),
+        body: FirstPage(),
       ),
     );
   }

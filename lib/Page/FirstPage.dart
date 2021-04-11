@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_small_online_shop/Model/Product.dart';
 import 'package:flutter_small_online_shop/Widget/AppData.dart';
+import 'package:flutter_small_online_shop/Widget/loadCircle.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'DetailPage.dart';
@@ -24,7 +25,7 @@ class _FirstPageState extends State<FirstPage> {
       child: Column(
         children: [
           //SearchBar
-          Container(
+          if (new_product.length > 0) Container(
             margin: EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -55,9 +56,9 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ],
             ),
-          ),
+          ) else Container(child: loadCircle()),
           Container(
-            // margin: EdgeInsets.only(top: 20, bottom: 50, right: 10, left: 10),
+
             height: h,
             child: ListView.builder(
               padding: EdgeInsets.only(bottom: 120),
@@ -78,10 +79,10 @@ class _FirstPageState extends State<FirstPage> {
   /////////////////////////////////////////////// Widgets ///////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  Widget getProductFromServer(String action, List<Product> list) {
+   getProductFromServer(String action, List<Product> list)async {
     if (list.length == 0) {
       var url = AppData.server_url + '?action=' + action;
-      http.get(url).then((resp) {
+     await http.get(url).then((resp) {
         //
         if (resp.statusCode == 200) {
           List jsonResp = convert.jsonDecode(resp.body);
@@ -104,7 +105,7 @@ class _FirstPageState extends State<FirstPage> {
       });
     }
   }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// View ///////////////////////////////////////////////////
   Widget ProductView(int index, List<Product> list) {
     double w = MediaQuery.of(context).size.width - 50;

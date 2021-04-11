@@ -141,9 +141,7 @@ class _ShowCommentState extends State<ShowComment> {
         color: Colors.white30,
         borderRadius: BorderRadius.all(
           Radius.circular(40),
-          // topLeft: Radius.circular(40),
-          // bottomRight: Radius.circular(20),
-          // bottomLeft: Radius.circular(20),
+
         ),
       ),
       width: w,

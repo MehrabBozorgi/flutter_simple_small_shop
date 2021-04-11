@@ -37,225 +37,246 @@ class _AddCommentState extends State<AddComment> {
       supportedLocales: [
         const Locale('fa'), // Farsi
       ],
-      home:
-        Scaffold(
-          backgroundColor: Colors.grey[900],
-          body: Center(
-            //
-            //
-            child: Container(
-              width: w - 10,
-              height: h - 10,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-                border: Border.all(width: 2, color: Colors.amber[200]),
-              ),
-              //
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
+      home: Scaffold(
+        backgroundColor: Colors.grey[900],
+        body: SafeArea(
+          child: Center(
+            child: Stack(
+              children: [
+                Container(
+                  width: w - 10,
+                  height: h - 10,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    border: Border.all(width: 2, color: Colors.amber[200]),
+                  ),
                   //
-                  child: Container(
-                    margin: EdgeInsets.only(right: 20, left: 20, top: 20),
-                    child: Column(
-                      children: [
-                        ///////////////////////////////////////////////////////////////////////////
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          style: TextStyle(color: Colors.white),
-                          onSaved: (String value) {
-                            _name = value;
-                            print(value);
-                          },
-                          validator: (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'فیلد مورد نظر را پر کنید';
-                            }
-                          },
-
-                          textDirection: TextDirection.rtl,
-                          //
-                          decoration: InputDecoration(
-                            counterStyle: TextStyle(
-                                color: Colors.amber[200],
-                                fontSize: 14,
-                                fontFamily: 'i'),
-                            //
-                            labelStyle: TextStyle(
-                                color: Colors.amber[200],
-                                fontSize: 16,
-                                fontFamily: 'b'),
-                            labelText: 'نام کاربری',
-                            fillColor: Colors.amber[200],
-                            //
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.amber[200], width: 3),
-                              //
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                bottomLeft: Radius.circular(25),
-                              ),
-                            ),
-                            //
-
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.white38, width: 1),
-                              //
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                              ),
-                            ),
+                  child: Form(
+                    key: _formKey,
+                    //
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20, left: 20, top: 20),
+                      child: Column(
+                        children: [
+                          ///////////////////////////////////////////////////////////////////////////
+                          SizedBox(
+                            height: 15,
                           ),
-                          maxLength: 30,
-
-                          keyboardType: TextInputType.name,
-                        ),
-                        ///////////////////////////////////////////////////////////////////////////
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          style: TextStyle(color: Colors.white),
-                          onSaved: (String value) {
-                            _email = value;
-                            print(value);
-                          },
-                          validator: (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'فیلد مورد نظر را پر کنید';
-                            }
-                          },
-
-                          textDirection: TextDirection.rtl,
-                          //
-                          decoration: InputDecoration(
-                            counterStyle: TextStyle(
-                                color: Colors.amber[200],
-                                fontSize: 14,
-                                fontFamily: 'i'),
-                            //
-                            labelStyle: TextStyle(
-                                color: Colors.amber[200],
-                                fontSize: 16,
-                                fontFamily: 'b'),
-                            labelText: 'ایمیل',
-                            fillColor: Colors.amber[200],
-                            //
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.amber[200], width: 3),
-                              //
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                bottomLeft: Radius.circular(25),
-                              ),
-                            ),
-                            //
-
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.white38, width: 1),
-                              //
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                              ),
-                            ),
-                          ),
-
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        ///////////////////////////////////////////////////////////////////////////
-                        SizedBox(
-                          height: 50,
-                        ),
-                        TextFormField(
-                          style: TextStyle(color: Colors.white),
-
-                          onSaved: (String value) {
-                            _comment = value;
-                            print(value);
-                          },
-                          validator: (String value) {
-                            if (value.trim().isEmpty) {
-                              return 'فیلد مورد نظر را پر کنید';
-                            }
-                          },
-
-                          textDirection: TextDirection.rtl,
-                          //
-                          decoration: InputDecoration(
-                            counterStyle: TextStyle(
-                                color: Colors.amber[200],
-                                fontSize: 14,
-                                fontFamily: 'i'),
-                            //
-                            labelStyle: TextStyle(
-                                color: Colors.amber[200],
-                                fontSize: 16,
-                                fontFamily: 'b'),
-                            labelText: 'دیدگاه شما ...',
-                            fillColor: Colors.amber[200],
-                            //
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.amber[200], width: 3),
-                              //
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(25),
-                                bottomLeft: Radius.circular(25),
-                              ),
-                            ),
-                            //
-
-                            enabledBorder: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(color: Colors.white38, width: 1),
-                              //
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(25),
-                                topRight: Radius.circular(25),
-                              ),
-                            ),
-                          ),
-                          maxLength: 500,
-                          minLines: 4,
-                          maxLines: 8,
-                          keyboardType: TextInputType.name,
-                        ),
-                        ///////////////////////////////////////////////////////////////////////////
-
-                        RaisedButton(
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                _formKey.currentState.save();
-
-                                setState(() {
-                                  send = 1;
-                                });
-
-                                sendInfo();
+                          TextFormField(
+                            style: TextStyle(color: Colors.white),
+                            onSaved: (String value) {
+                              _name = value;
+                              print(value);
+                            },
+                            validator: (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'فیلد مورد نظر را پر کنید';
                               }
                             },
-                            child: Text('ثبت نظر'))
-                      ],
+
+                            textDirection: TextDirection.rtl,
+                            //
+                            decoration: InputDecoration(
+                              counterStyle: TextStyle(
+                                  color: Colors.amber[200],
+                                  fontSize: 14,
+                                  fontFamily: 'i'),
+                              //
+                              labelStyle: TextStyle(
+                                  color: Colors.amber[200],
+                                  fontSize: 16,
+                                  fontFamily: 'b'),
+                              labelText: 'نام کاربری',
+                              fillColor: Colors.amber[200],
+                              //
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.amber[200], width: 3),
+                                //
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  bottomLeft: Radius.circular(25),
+                                ),
+                              ),
+                              //
+
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white38, width: 1),
+                                //
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(25),
+                                  topRight: Radius.circular(25),
+                                ),
+                              ),
+                            ),
+                            maxLength: 30,
+
+                            keyboardType: TextInputType.name,
+                          ),
+                          ///////////////////////////////////////////////////////////////////////////
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            style: TextStyle(color: Colors.white),
+                            onSaved: (String value) {
+                              _email = value;
+                              print(value);
+                            },
+                            validator: (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'فیلد مورد نظر را پر کنید';
+                              }
+                            },
+
+                            textDirection: TextDirection.rtl,
+                            //
+                            decoration: InputDecoration(
+                              counterStyle: TextStyle(
+                                  color: Colors.amber[200],
+                                  fontSize: 14,
+                                  fontFamily: 'i'),
+                              //
+                              labelStyle: TextStyle(
+                                  color: Colors.amber[200],
+                                  fontSize: 16,
+                                  fontFamily: 'b'),
+                              labelText: 'ایمیل',
+                              fillColor: Colors.amber[200],
+                              //
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.amber[200], width: 3),
+                                //
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  bottomLeft: Radius.circular(25),
+                                ),
+                              ),
+                              //
+
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white38, width: 1),
+                                //
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(25),
+                                  topRight: Radius.circular(25),
+                                ),
+                              ),
+                            ),
+
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          ///////////////////////////////////////////////////////////////////////////
+                          SizedBox(
+                            height: 50,
+                          ),
+                          TextFormField(
+                            style: TextStyle(color: Colors.white),
+
+                            onSaved: (String value) {
+                              _comment = value;
+                              print(value);
+                            },
+                            validator: (String value) {
+                              if (value.trim().isEmpty) {
+                                return 'فیلد مورد نظر را پر کنید';
+                              }
+                            },
+
+                            textDirection: TextDirection.rtl,
+                            //
+                            decoration: InputDecoration(
+                              counterStyle: TextStyle(
+                                  color: Colors.amber[200],
+                                  fontSize: 14,
+                                  fontFamily: 'i'),
+                              //
+                              labelStyle: TextStyle(
+                                  color: Colors.amber[200],
+                                  fontSize: 16,
+                                  fontFamily: 'b'),
+                              labelText: 'دیدگاه شما ...',
+                              fillColor: Colors.amber[200],
+                              //
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.amber[200], width: 3),
+                                //
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  bottomLeft: Radius.circular(25),
+                                ),
+                              ),
+                              //
+
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.white38, width: 1),
+                                //
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(25),
+                                  topRight: Radius.circular(25),
+                                ),
+                              ),
+                            ),
+                            maxLength: 500,
+                            minLines: 4,
+                            maxLines: 8,
+                            keyboardType: TextInputType.name,
+                          ),
+                          ////////////////////////////////// Button //////////////////////////////////
+
+                          RaisedButton(
+                              padding: EdgeInsets.only(
+                                  right: 40, left: 40, bottom: 10, top: 10),
+                              color: Colors.amber[200],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+
+                                  setState(() {
+                                    send = 1;
+                                  });
+
+                                  sendInfo();
+                                }
+                              },
+                              child: Text(
+                                'ثبت نظر',
+                                style: TextStyle(
+                                    fontFamily: 'b',
+                                    fontSize: 16,
+                                    color: Colors.black),
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+                send == 1
+                    ? Opacity(
+                        opacity: 0.3,
+                        child: Container(
+                          color: Colors.white,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      )
+                    : Text(''),
+              ],
             ),
           ),
-
+        ),
       ),
     );
-
   }
 
   sendInfo() {
@@ -270,7 +291,6 @@ class _AddCommentState extends State<AddComment> {
       setState(() {
         print(resp.body);
         send = 0;
-
 
         _formKey.currentState.reset();
       });
