@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_small_online_shop/Model/MySlider.dart';
 import 'package:flutter_small_online_shop/Model/Product.dart';
+import 'package:flutter_small_online_shop/Page/AddComment.dart';
 import 'package:flutter_small_online_shop/Widget/AppData.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'CartPage.dart';
 import 'ShowComment.dart';
 
 class DetailPage extends StatefulWidget {
@@ -32,6 +33,8 @@ class _DetailPageState extends State<DetailPage> {
   int price = 0;
   List<MySlider> slider = [];
 
+  //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   getSlider() {
     if (slider.length == 0) {
       String url = AppData.server_url +
@@ -55,6 +58,8 @@ class _DetailPageState extends State<DetailPage> {
     }
   }
 
+  //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   _DetailPageState(productId) {
     String url = AppData.server_url +
         '?action=getProductData&id=' +
@@ -75,6 +80,8 @@ class _DetailPageState extends State<DetailPage> {
     });
   }
 
+  //
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -82,34 +89,62 @@ class _DetailPageState extends State<DetailPage> {
     getSlider();
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.indigo[700],
+        backgroundColor: Colors.grey[900],
         appBar: AppBar(
-          backgroundColor: Colors.indigo[700],
+          backgroundColor: Colors.grey[900],
           elevation: 0,
           actions: [
-            Icon(
-              Icons.save,
-              color: Colors.red,
-              size: 30,
-            ),
-            SizedBox(
-              width: 10,
-            ),
+            //
+            /////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////  AddComment ///////////////////////////////////////////////////////
+            IconButton(
+                mouseCursor: MouseCursor.defer,
+                tooltip: 'ثبت دیدگاه',
+                icon: Icon(
+                  Icons.add_comment_rounded,
+                  color: Colors.white,
+                ),
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddComment(widget.productId)));
+                }
+                ,),
+            //
+            /////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////  ShowComment //////////////////////////////////////////////////////
+            IconButton(
+                mouseCursor: MouseCursor.defer,
+                tooltip: 'مشاهده نظرات',
+                icon: Icon(
+                  Icons.comment,
+                  color: Colors.white,
+                ),
+
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ShowComment(widget.productId),));
+                }),
+            //
+            /////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////  AddCart //////////////////////////////////////////////////////////
             IconButton(
                 mouseCursor: MouseCursor.defer,
                 tooltip: 'سبد خرید',
                 icon: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Colors.red,
-                  size: 30,
+                  Icons.shopping_cart_rounded,
+                  color: Colors.white,
                 ),
                 onPressed: () {}),
           ],
         ),
+        ///////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ///////////////slider/////////////////
+              /////////////// Slider //////////////////////////////////////////////////////////
               Container(
                 height: 250,
                 child: PageView.builder(
@@ -133,7 +168,32 @@ class _DetailPageState extends State<DetailPage> {
                   child: footer(),
                 ),
               ),
-              ///////////////slider/////////////////
+              //
+              //////////////////////////////////////////////////////////////////////////////////////////////////
+              //////////////////////////////////////// Price ///////////////////////////////////////////////////
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 60,
+                    width: 90,
+                    margin: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                        color: Colors.amber[200],
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20))),
+                    child: Center(
+                        child: Text(
+                      price.toString() + ' تومان',
+                      style: TextStyle(fontFamily: 'b', color: Colors.grey[800]),
+                    )),
+                  ),
+                ],
+              ),
+              //
+              //////////////////////////////////////////////////////////////////////////////////////////////////
+              //////////////////////////////////////// Detail ///////////////////////////////////////////////////
               Container(
                 margin: EdgeInsets.only(right: 10),
                 alignment: Alignment.topRight,
@@ -152,95 +212,72 @@ class _DetailPageState extends State<DetailPage> {
                   left: 5,
                 ),
                 padding:
-                    EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 20),
+                    EdgeInsets.only(right: 25, left: 20, top: 15, bottom: 20),
                 alignment: Alignment.topRight,
                 decoration: BoxDecoration(
                   color: Colors.white38,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(70),
                       bottomRight: Radius.circular(70)),
+                  border: Border.all(width: 0.5, color: Colors.amber[200]),
                 ),
                 child: Text(
                   description,
                   style: TextStyle(
                       fontSize: 16,
                       fontFamily: 'i',
-                      color: Colors.black,
+                      color: Colors.white,
                       letterSpacing: 2),
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-              ////////////////////////////////////
-              //////////////  Button  ////////////
-              ////////////////////////////////////
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      topRight: Radius.circular(50)),
-                ),
-                width: w - 70,
-                height: 55,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.shopping_cart,
-                      color: Colors.white,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(right: 10),
-                      child: Text(
-                        price.toString(),
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: 'b', fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
+              ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              /////////////////////////////////////////////  Button  /////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              GestureDetector(onTap: (){
+                Cart.add_product_cart(widget.productId.toString(), title,
+                    int.parse(productPrice), img_url)
+                    .then((response) {
+                  if (response) {
+
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => ShowComment(widget.productId)));
-                },
+                      MaterialPageRoute(builder: (context) => CartPage()),
+                    );
+                  }
+                });
+              },
                 child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.amber[200],
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50)),
+                  ),
                   width: w,
-                  height: 60,
-                  color: Colors.white38,
+                  height: 75,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'مشاهده نظرات ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'b',
-                          fontSize: 18,
+                      Icon(
+                        Icons.shopping_basket,
+                        color: Colors.grey[800],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Text(
+                          'اضافه کردن به سبد خرید',
+                          style: TextStyle(
+                              color: Colors.grey[800],
+                              fontFamily: 'b',
+                              fontSize: 18),
                         ),
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(
-                        Icons.comment,
-                        color: Colors.white,
-                      )
                     ],
                   ),
                 ),
-              ),
-
-              SizedBox(
-                height: 20,
               ),
             ],
           ),
@@ -249,9 +286,11 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-/////////////////////////////////////
-////////// Widgets //////////////////
-/////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////// Widgets ///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
   Widget ListViewView(int index) {
     double w = MediaQuery.of(context).size.width;
@@ -273,10 +312,11 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Widget _Active() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Colors.amber[300],
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -286,6 +326,7 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   Widget _InActive() {
     return Container(
       decoration: BoxDecoration(

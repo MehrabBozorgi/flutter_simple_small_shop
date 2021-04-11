@@ -44,7 +44,6 @@ class _FirstPageState extends State<FirstPage> {
                         fontFamily: 'b',
                         fontSize: 16,
                         letterSpacing: 2,
-
                         color: Colors.grey[900])),
                 SizedBox(
                   width: 5,
@@ -52,7 +51,7 @@ class _FirstPageState extends State<FirstPage> {
                 Text(
                   'فروشگاه',
                   style: TextStyle(
-                      fontFamily: 'b', fontSize: 18, color: Colors.redAccent),
+                      fontFamily: 'b', fontSize: 18, color: Colors.amber[200]),
                 ),
               ],
             ),
@@ -75,13 +74,12 @@ class _FirstPageState extends State<FirstPage> {
     );
   }
 
-  /////////////////////////////////////
-  ////////// Widgets //////////////////
-  /////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////// Widgets ///////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   Widget getProductFromServer(String action, List<Product> list) {
     if (list.length == 0) {
-
       var url = AppData.server_url + '?action=' + action;
       http.get(url).then((resp) {
         //
@@ -99,7 +97,7 @@ class _FirstPageState extends State<FirstPage> {
                 slide_img: jsonResp[i]['slide_img'],
                 description: jsonResp[i]['description'],
               ));
-           //
+              //
             });
           }
         }
@@ -107,6 +105,7 @@ class _FirstPageState extends State<FirstPage> {
     }
   }
 
+  ///////////////////////////////////////////// View ///////////////////////////////////////////////////
   Widget ProductView(int index, List<Product> list) {
     double w = MediaQuery.of(context).size.width - 50;
     double h = MediaQuery.of(context).size.height;
@@ -169,7 +168,6 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                 ),
               ),
-
               Container(
                 margin: EdgeInsets.only(bottom: 15),
                 child: Text(

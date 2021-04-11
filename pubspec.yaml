@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   http: ^0.12.0+4
+  shared_preferences: ^0.5.10
 
 
 
@@ -72,7 +73,7 @@ flutter:
     #         style: italic
     - family: i
       fonts:
-        - asset: fonts/IranianSans.ttf
+        - asset: fonts/irancell.ttf
 
   #
   # For details regarding fonts from package dependencies,
