@@ -17,8 +17,14 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double h = MediaQuery
+        .of(context)
+        .size
+        .height;
     getProductFromServer('new_product', new_product);
 
     return SingleChildScrollView(
@@ -56,7 +62,8 @@ class _FirstPageState extends State<FirstPage> {
                 ),
               ],
             ),
-          ) else Container(child: loadCircle()),
+          ) else
+            Container(child: loadCircle()),
           Container(
 
             height: h,
@@ -79,10 +86,10 @@ class _FirstPageState extends State<FirstPage> {
   /////////////////////////////////////////////// Widgets ///////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   getProductFromServer(String action, List<Product> list)async {
+  getProductFromServer(String action, List<Product> list) async {
     if (list.length == 0) {
       var url = AppData.server_url + '?action=' + action;
-     await http.get(url).then((resp) {
+      await http.get(url).then((resp) {
         //
         if (resp.statusCode == 200) {
           List jsonResp = convert.jsonDecode(resp.body);
@@ -105,11 +112,18 @@ class _FirstPageState extends State<FirstPage> {
       });
     }
   }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// View ///////////////////////////////////////////////////
   Widget ProductView(int index, List<Product> list) {
-    double w = MediaQuery.of(context).size.width - 50;
-    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery
+        .of(context)
+        .size
+        .width - 50;
+    double h = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     return GestureDetector(
       onTap: () {
