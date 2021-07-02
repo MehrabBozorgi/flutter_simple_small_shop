@@ -1,5 +1,4 @@
-class MySlider{
-
+class MySlider {
   int id;
   String product_id;
   String img_slide;
