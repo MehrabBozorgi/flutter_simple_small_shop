@@ -7,8 +7,7 @@ class loadCircle extends StatelessWidget {
       margin: EdgeInsets.only(top: 250),
       child: Center(
         child: CircularProgressIndicator(
-          valueColor:AlwaysStoppedAnimation<Color>(Colors.yellow[600]),
-
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[600]),
         ),
       ),
     );

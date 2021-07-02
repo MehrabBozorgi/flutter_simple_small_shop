@@ -17,55 +17,52 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery
-        .of(context)
-        .size
-        .width;
-    double h = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     getProductFromServer('new_product', new_product);
 
     return SingleChildScrollView(
       child: Column(
         children: [
           //SearchBar
-          if (new_product.length > 0) Container(
-            margin: EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.white38,
-            ),
-            width: w,
-            height: 50,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.search,
-                  color: Colors.grey[800],
-                  size: 30,
-                ),
-                Text('جستجو در',
+          if (new_product.length > 0)
+            Container(
+              margin: EdgeInsets.only(right: 5, left: 5, top: 5, bottom: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white38,
+              ),
+              width: w,
+              height: 50,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search,
+                    color: Colors.grey[800],
+                    size: 30,
+                  ),
+                  Text('جستجو در',
+                      style: TextStyle(
+                          fontFamily: 'b',
+                          fontSize: 16,
+                          letterSpacing: 2,
+                          color: Colors.grey[900])),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'فروشگاه',
                     style: TextStyle(
                         fontFamily: 'b',
-                        fontSize: 16,
-                        letterSpacing: 2,
-                        color: Colors.grey[900])),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'فروشگاه',
-                  style: TextStyle(
-                      fontFamily: 'b', fontSize: 18, color: Colors.amber[200]),
-                ),
-              ],
-            ),
-          ) else
+                        fontSize: 18,
+                        color: Colors.amber[200]),
+                  ),
+                ],
+              ),
+            )
+          else
             Container(child: loadCircle()),
           Container(
-
             height: h,
             child: ListView.builder(
               padding: EdgeInsets.only(bottom: 120),
@@ -116,14 +113,8 @@ class _FirstPageState extends State<FirstPage> {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// View ///////////////////////////////////////////////////
   Widget ProductView(int index, List<Product> list) {
-    double w = MediaQuery
-        .of(context)
-        .size
-        .width - 50;
-    double h = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double w = MediaQuery.of(context).size.width - 50;
+    double h = MediaQuery.of(context).size.height;
 
     return GestureDetector(
       onTap: () {
