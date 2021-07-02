@@ -59,8 +59,11 @@ class _ShowCommentState extends State<ShowComment> {
                   /////////////////////////////////////////////////////////////////////////////////////////////////
                   /////////////////////////////////////////////////////////////////////////////////////////////////
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AddComment(widget.productId)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                AddComment(widget.productId)));
                   }),
             ],
           ),
@@ -93,8 +96,11 @@ class _ShowCommentState extends State<ShowComment> {
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AddComment(widget.productId)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                AddComment(widget.productId)));
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -141,7 +147,6 @@ class _ShowCommentState extends State<ShowComment> {
         color: Colors.white30,
         borderRadius: BorderRadius.all(
           Radius.circular(40),
-
         ),
       ),
       width: w,

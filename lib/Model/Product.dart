@@ -6,13 +6,12 @@ class Product {
   String description;
   String slide_img;
 
-
-  Product(
-      {this.id,
-      this.title,
-      this.img_url,
-      this.price,
-      this.description,
-      this.slide_img,
-     });
+  Product({
+    this.id,
+    this.title,
+    this.img_url,
+    this.price,
+    this.description,
+    this.slide_img,
+  });
 }
