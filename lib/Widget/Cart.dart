@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart {
-
   static Future<bool> add_product_cart(
       String product_id, String title, int price, String img_url) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -23,8 +22,6 @@ class Cart {
     }
     return true;
   }
-
-
 
   static add_product_data(
       String product_id, String title, int price, String img_url) async {
