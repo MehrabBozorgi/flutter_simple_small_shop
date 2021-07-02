@@ -33,7 +33,8 @@ class _DetailPageState extends State<DetailPage> {
   String slide_img = '';
   int tab_index = 0;
 
-  String price ;
+  String price;
+
   String productPrice;
 
   List<MySlider> slider = [];
@@ -108,19 +109,21 @@ class _DetailPageState extends State<DetailPage> {
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////  AddComment ///////////////////////////////////////////////////////
             IconButton(
-                mouseCursor: MouseCursor.defer,
-                tooltip: 'ثبت دیدگاه',
-                icon: Icon(
-                  Icons.add_comment_rounded,
-                  color: Colors.white,
-                ),
-                /////////////////////////////////////////////////////////////////////////////////////////////////
-                /////////////////////////////////////////////////////////////////////////////////////////////////
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddComment(widget.productId)));
-                }
-                ,),
+              mouseCursor: MouseCursor.defer,
+              tooltip: 'ثبت دیدگاه',
+              icon: Icon(
+                Icons.add_comment_rounded,
+                color: Colors.white,
+              ),
+              /////////////////////////////////////////////////////////////////////////////////////////////////
+              /////////////////////////////////////////////////////////////////////////////////////////////////
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddComment(widget.productId)));
+              },
+            ),
             //
             /////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////  ShowComment //////////////////////////////////////////////////////
@@ -131,10 +134,12 @@ class _DetailPageState extends State<DetailPage> {
                   Icons.comment,
                   color: Colors.white,
                 ),
-
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ShowComment(widget.productId),));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ShowComment(widget.productId),
+                      ));
                 }),
             //
             /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,149 +161,153 @@ class _DetailPageState extends State<DetailPage> {
         ),
         ///////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////
-        body:
-     (  title.isNotEmpty ? SingleChildScrollView(
-          child: Column(
-            children: [
-              ///////////////////////////////////////////////////////////////////////////////////////
-              ///////////////////// Slider //////////////////////////////////////////////////////////
-              Container(
-                height: 250,
-                child: PageView.builder(
-                  itemBuilder: (context, position) {
-                    return SingleChildScrollView(
+        body: (title.isNotEmpty
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ///////////////////////////////////////////////////////////////////////////////////////
+                    ///////////////////// Slider //////////////////////////////////////////////////////////
+                    Container(
+                      height: 250,
+                      child: PageView.builder(
+                        itemBuilder: (context, position) {
+                          return SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: ListViewView(position));
+                        },
                         scrollDirection: Axis.horizontal,
-                        child: ListViewView(position));
-                  },
-                  scrollDirection: Axis.horizontal,
-                  itemCount: slider.length,
-                  onPageChanged: (position) {
-                    setState(() {
-                      tab_index = position;
-                    });
-                  },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 20),
-                child: Center(
-                  child: footer(),
-                ),
-              ),
-              //
-              //////////////////////////////////////////////////////////////////////////////////////////////////
-              //////////////////////////////////////// Price ///////////////////////////////////////////////////
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 60,
-                    width: 90,
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                        color: Colors.amber[200],
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            bottomLeft: Radius.circular(20))),
-                    child: Center(
-                        child: Text(
-                      price.toString() + ' تومان',
-                      style: TextStyle(fontFamily: 'b', color: Colors.grey[800]),
-                    )),
-                  ),
-                ],
-              ),
-              //
-              //////////////////////////////////////////////////////////////////////////////////////////////////
-              //////////////////////////////////////// Detail ///////////////////////////////////////////////////
-              Container(
-                margin: EdgeInsets.only(right: 10),
-                alignment: Alignment.topRight,
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 20, fontFamily: 'b', color: Colors.white),
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                margin: EdgeInsets.only(
-                  right: 5,
-                  left: 5,
-                ),
-                padding:
-                    EdgeInsets.only(right: 25, left: 20, top: 15, bottom: 20),
-                alignment: Alignment.topRight,
-                decoration: BoxDecoration(
-                  color: Colors.white38,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(70),
-                      bottomRight: Radius.circular(70)),
-                  border: Border.all(width: 0.5, color: Colors.amber[200]),
-                ),
-                child: Text(
-                  description,
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'i',
-                      color: Colors.white,
-                      letterSpacing: 2),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-              /////////////////////////////////////////////  Button  /////////////////////////////////////////////////////
-              ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-              GestureDetector(onTap: (){
-                Cart.add_product_cart(widget.productId.toString(), title,
-                    int.parse(productPrice), img_url)
-                    .then((response) {
-                  if (response) {
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CartPage()),
-                    );
-                  }
-                });
-              },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.amber[200],
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50)),
-                  ),
-                  width: w,
-                  height: 75,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.shopping_basket,
-                        color: Colors.grey[800],
+                        itemCount: slider.length,
+                        onPageChanged: (position) {
+                          setState(() {
+                            tab_index = position;
+                          });
+                        },
                       ),
-                      Container(
-                        margin: EdgeInsets.only(right: 10),
-                        child: Text(
-                          'اضافه کردن به سبد خرید',
-                          style: TextStyle(
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10, bottom: 20),
+                      child: Center(
+                        child: footer(),
+                      ),
+                    ),
+                    //
+                    //////////////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////// Price ///////////////////////////////////////////////////
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 90,
+                          margin: EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                              color: Colors.amber[200],
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20))),
+                          child: Center(
+                              child: Text(
+                            price.toString() + ' تومان',
+                            style: TextStyle(
+                                fontFamily: 'b', color: Colors.grey[800]),
+                          )),
+                        ),
+                      ],
+                    ),
+                    //
+                    //////////////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////// Detail ///////////////////////////////////////////////////
+                    Container(
+                      margin: EdgeInsets.only(right: 10),
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                            fontSize: 20, fontFamily: 'b', color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        right: 5,
+                        left: 5,
+                      ),
+                      padding: EdgeInsets.only(
+                          right: 25, left: 20, top: 15, bottom: 20),
+                      alignment: Alignment.topRight,
+                      decoration: BoxDecoration(
+                        color: Colors.white38,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(70),
+                            bottomRight: Radius.circular(70)),
+                        border:
+                            Border.all(width: 0.5, color: Colors.amber[200]),
+                      ),
+                      child: Text(
+                        description,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'i',
+                            color: Colors.white,
+                            letterSpacing: 2),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////  Button  /////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    GestureDetector(
+                      onTap: () {
+                        Cart.add_product_cart(widget.productId.toString(),
+                                title, int.parse(productPrice), img_url)
+                            .then((response) {
+                          if (response) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CartPage()),
+                            );
+                          }
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.amber[200],
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50)),
+                        ),
+                        width: w,
+                        height: 75,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.shopping_basket,
                               color: Colors.grey[800],
-                              fontFamily: 'b',
-                              fontSize: 18),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              child: Text(
+                                'اضافه کردن به سبد خرید',
+                                style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontFamily: 'b',
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ) :loadCircle() ),
+              )
+            : loadCircle()),
       ),
     );
   }
@@ -306,8 +315,6 @@ class _DetailPageState extends State<DetailPage> {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////// Widgets ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
   Widget ListViewView(int index) {
     double w = MediaQuery.of(context).size.width;

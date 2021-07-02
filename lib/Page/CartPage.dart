@@ -50,7 +50,10 @@ class _CartPageState extends State<CartPage> {
         appBar: AppBar(
           backgroundColor: Colors.grey[900],
           elevation: 0,
-          title: Text('سبد خرید',style: TextStyle(fontFamily: 'b'),),
+          title: Text(
+            'سبد خرید',
+            style: TextStyle(fontFamily: 'b'),
+          ),
           actions: [
             ////////////////////////////////////////////////////////////////////////////////////////////////
             ////////////////  DELETE_ICON   ////////////////////////////////////////////////////////////////
@@ -68,7 +71,8 @@ class _CartPageState extends State<CartPage> {
                         content: Text(
                           'خالی کردن سبد خرید؟',
                           textAlign: TextAlign.right,
-                          style: TextStyle(color: Colors.white,fontFamily: 'i'),
+                          style:
+                              TextStyle(color: Colors.white, fontFamily: 'i'),
                         ),
                         elevation: 15,
                         actions: [
@@ -76,13 +80,13 @@ class _CartPageState extends State<CartPage> {
                           ///////////////////////// NO ///////////////////
                           ////////////////////////////////////////////////
                           RaisedButton(
-
                             onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Text(
                               'خیر',
-                              style: TextStyle(color: Colors.black,fontFamily: 'i'),
+                              style: TextStyle(
+                                  color: Colors.black, fontFamily: 'i'),
                             ),
                           ),
                           ////////////////////////////////////////////////
@@ -102,7 +106,8 @@ class _CartPageState extends State<CartPage> {
                             },
                             child: Text(
                               'بله',
-                              style: TextStyle(color: Colors.red,fontFamily: 'i'),
+                              style:
+                                  TextStyle(color: Colors.red, fontFamily: 'i'),
                             ),
                           )
                         ],
@@ -134,7 +139,10 @@ class _CartPageState extends State<CartPage> {
                     child: Text(
                       'سبد خرید خالی می باشد',
                       style: TextStyle(
-                          fontSize: 18, fontFamily: 'b', color: Colors.white,),
+                        fontSize: 18,
+                        fontFamily: 'b',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -262,7 +270,7 @@ class _CartPageState extends State<CartPage> {
                           child: Text(
                         price + ' تومان',
                         textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.white,fontFamily: 'b'),
+                        style: TextStyle(color: Colors.white, fontFamily: 'b'),
                       )),
                     ],
                   ),
@@ -279,8 +287,7 @@ class _CartPageState extends State<CartPage> {
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-
-                      color: Colors.white38,
+                    color: Colors.white38,
                   ),
                   child: Row(
                     children: [
@@ -288,16 +295,15 @@ class _CartPageState extends State<CartPage> {
                         child: Text(
                           'جمع دوره ها',
                           textAlign: TextAlign.right,
-
-    style: TextStyle(color: Colors.yellow[600],fontFamily: 'b'),
+                          style: TextStyle(
+                              color: Colors.yellow[600], fontFamily: 'b'),
                         ),
                       ),
                       Expanded(
                           child: Text(
                         price2 + ' تومان',
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                            color: Colors.green, fontFamily: 'b'),
+                        style: TextStyle(color: Colors.green, fontFamily: 'b'),
                       )),
                     ],
                   ),
@@ -311,11 +317,14 @@ class _CartPageState extends State<CartPage> {
                       child: Row(
                         children: [
                           IconButton(
-                            autofocus: true,
+                              autofocus: true,
                               ////////////////////////////////////////////////
                               /////////  Add  ////////////////////////////////
                               ////////////////////////////////////////////////
-                              icon: Icon(Icons.add,color: Colors.white,),
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
                               onPressed: () {
                                 Cart.change_number_product(cartProductId[index])
                                     .then((response) {
@@ -330,12 +339,20 @@ class _CartPageState extends State<CartPage> {
                                   }
                                 });
                               }),
-                          Text(product_listData[index]['number'].toString(),style: TextStyle(color: Colors.white,),),
+                          Text(
+                            product_listData[index]['number'].toString(),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                           IconButton(
                               ////////////////////////////////////////////////
                               /////////  Remove  /////////////////////////////
                               ////////////////////////////////////////////////
-                              icon: Icon(Icons.remove,color: Colors.white,),
+                              icon: Icon(
+                                Icons.remove,
+                                color: Colors.white,
+                              ),
                               onPressed: () {
                                 Cart.reduce_product_count(cartProductId[index])
                                     .then((response) {
